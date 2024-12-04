@@ -9,6 +9,8 @@ type UserResponse struct {
 	DateOfBirth  string  `json:"date_of_birth"`
 	Salary       float64 `json:"salary"`
 	Role         string  `json:"role"`
+	NumberPhone  string  `json:"number_phone"`
+	Email        string  `json:"email"`
 }
 
 type UserLoginRequest struct {

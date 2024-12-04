@@ -46,10 +46,10 @@ func (controller *UserControllerImpl) Login(c *gin.Context) {
 		})
 		return
 	}
-	userName := credentials[0]
+	identity := credentials[0]
 	password := credentials[1]
 
-	tokenResponse := controller.UserService.Login(&userName, &password, &userAgent, &remoteAddress, &request)
+	tokenResponse := controller.UserService.Login(&identity, &password, &userAgent, &remoteAddress, &request)
 	webResponse := web.WebResponse{
 		Success: true,
 		Message: "Login success",

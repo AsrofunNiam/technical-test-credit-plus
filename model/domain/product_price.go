@@ -17,8 +17,7 @@ type ProductPrice struct {
 	EndDate    time.Time `gorm:"type:date;not null"`
 
 	// Relations
-	// Currency Currency `gorm:"foreignKey:CurrencyID;references:ID"`
-	// Product  Product  `gorm:"foreignKey:ProductID;references:ID"`
+	Currency Currency `gorm:"foreignKey:CurrencyID;references:ID"`
 }
 
 func (productPrice *ProductPrice) ToProductPriceResponse() web.ProductPriceResponse {
@@ -30,6 +29,9 @@ func (productPrice *ProductPrice) ToProductPriceResponse() web.ProductPriceRespo
 		Price:     productPrice.Price,
 		StartDate: productPrice.StartDate.Format("2006-01-02"),
 		EndDate:   productPrice.EndDate.Format("2006-01-02"),
+
+		// Relations
+		Currency: productPrice.Currency.ToCurrencyResponse(),
 	}
 }
 

@@ -6,5 +6,5 @@ import (
 )
 
 type UserRepository interface {
-	FindByUserName(db *gorm.DB, userName *string) domain.User
+	Login(db *gorm.DB, identity *string) domain.User
 }

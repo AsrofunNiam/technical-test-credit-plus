@@ -29,13 +29,13 @@ func NewUserService(
 	}
 }
 
-func (service *UserServiceImpl) Login(userName, password, userAgent, remoteAddress *string, request *web.UserLoginRequest) web.TokenResponse {
+func (service *UserServiceImpl) Login(identity, password, userAgent, remoteAddress *string, request *web.UserLoginRequest) web.TokenResponse {
 	tx := service.DB.Begin()
 	err := tx.Error
 	helper.PanicIfError(err)
 	defer helper.CommitOrRollback(tx)
 
-	user := service.UserRepository.FindByUserName(tx, userName)
+	user := service.UserRepository.Login(tx, identity)
 
 	hashedPassword := []byte(*password)
 	err = bcrypt.CompareHashAndPassword([]byte(user.Password), hashedPassword)

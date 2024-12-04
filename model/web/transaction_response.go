@@ -10,5 +10,6 @@ type TransactionResponse struct {
 	InterestAmount   float64         `json:"interest_amount"`
 	Period           int             `json:"period"`
 	TransactionType  string          `json:"transaction_type"`
-	ProductResponse  ProductResponse `json:"product"`
+	User             UserResponse    `json:"user"`
+	Product          ProductResponse `json:"product"`
 }

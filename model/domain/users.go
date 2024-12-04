@@ -25,6 +25,8 @@ type User struct {
 	FaceImage     string    `gorm:"size:200"`
 	Password      string    `gorm:"size:100"`
 	Role          string    `gorm:"size:100"`
+	NumberPhone   string    `gorm:"size:15;uniqueIndex:idx_users"`
+	Email         string    `gorm:"size:100;uniqueIndex:idx_users"`
 }
 
 func (user *User) ToUserResponse() web.UserResponse {
@@ -32,9 +34,11 @@ func (user *User) ToUserResponse() web.UserResponse {
 		// Required Fields
 		ID: user.ID,
 		// Fields
-		FullName:  user.FullName,
-		LegalName: user.LegalName,
-		Role:      user.Role,
+		FullName:    user.FullName,
+		LegalName:   user.LegalName,
+		NumberPhone: user.NumberPhone,
+		Email:       user.Email,
+		Role:        user.Role,
 	}
 }
 

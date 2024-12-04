@@ -24,7 +24,8 @@ type Transaction struct {
 	TransactionType  string  `gorm:"type:enum('withdrawal', 'purchase');not null"`
 
 	// relationship
-	// Product Product `gorm:"foreignKey:ProductID"`
+	Product Product `gorm:"foreignKey:ProductID"`
+	User    User    `gorm:"foreignKey:UserID"`
 }
 
 func (transaction *Transaction) ToTransactionResponse() web.TransactionResponse {
@@ -40,7 +41,9 @@ func (transaction *Transaction) ToTransactionResponse() web.TransactionResponse 
 		Period:           transaction.Period,
 		TransactionType:  transaction.TransactionType,
 
-		// ProductResponse: transaction.Product.ToProductResponse(),
+		// Relations
+		Product: transaction.Product.ToProductResponse(),
+		User:    transaction.User.ToUserResponse(),
 	}
 }
 

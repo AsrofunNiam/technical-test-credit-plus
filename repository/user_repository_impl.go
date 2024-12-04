@@ -13,9 +13,9 @@ func NewUserRepository() UserRepository {
 	return &UserRepositoryImpl{}
 }
 
-func (repository *UserRepositoryImpl) FindByUserName(db *gorm.DB, userName *string) domain.User {
+func (repository *UserRepositoryImpl) Login(db *gorm.DB, identity *string) domain.User {
 	var user domain.User
-	err := db.Where("user_name = ?", userName).First(&user).Error
+	err := db.Where("email = ? OR number_phone = ?", identity, identity).First(&user).Error
 	helper.PanicIfError(err)
 	return user
 }

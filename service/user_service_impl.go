@@ -35,6 +35,10 @@ func (service *UserServiceImpl) Login(identity, password, userAgent, remoteAddre
 	helper.PanicIfError(err)
 	defer helper.CommitOrRollback(tx)
 
+	// validate
+	err = service.Validate.Struct(request)
+	helper.PanicIfError(err)
+
 	user := service.UserRepository.Login(tx, identity)
 
 	hashedPassword := []byte(*password)

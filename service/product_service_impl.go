@@ -29,16 +29,18 @@ func NewProductService(
 }
 
 func (service *ProductServiceImpl) FindAll(auth *auth.AccessDetails, filters *map[string]string, c *gin.Context) []web.ProductResponse {
-	tx := service.DB.Begin()
-	defer helper.CommitOrRollback(tx)
+	tx := service.DB
+	err := tx.Error
+	helper.PanicIfError(err)
 
 	products := service.ProductRepository.FindAll(tx, filters)
 	return products.ToProductResponses()
 }
 
 func (service *ProductServiceImpl) FindByID(auth *auth.AccessDetails, id *uint, c *gin.Context) web.ProductResponse {
-	tx := service.DB.Begin()
-	defer helper.CommitOrRollback(tx)
+	tx := service.DB
+	err := tx.Error
+	helper.PanicIfError(err)
 
 	product := service.ProductRepository.FindByID(tx, id)
 	return product.ToProductResponse()

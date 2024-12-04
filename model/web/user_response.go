@@ -14,5 +14,5 @@ type UserResponse struct {
 }
 
 type UserLoginRequest struct {
-	AccessToken string `json:"access_token"`
+	AccessToken string `json:"access_token" validate:"required"`
 }

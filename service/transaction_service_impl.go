@@ -1,9 +1,8 @@
 package service
 
 import (
-	"net/http"
-
 	"github.com/AsrofunNiam/technical-test-credit-plus/auth"
+	"github.com/AsrofunNiam/technical-test-credit-plus/exception"
 	"github.com/AsrofunNiam/technical-test-credit-plus/helper"
 	"github.com/AsrofunNiam/technical-test-credit-plus/model/domain"
 	"github.com/AsrofunNiam/technical-test-credit-plus/model/web"
@@ -49,19 +48,42 @@ func (service *TransactionServiceImpl) CreateLoanSubmission(auth *auth.AccessDet
 	tx := service.DB.Begin()
 	defer helper.CommitOrRollback(tx)
 
-	//  check for limit
-	limit := service.LimitRepository.FindByID(tx, &auth.ID)
+	//  validate request
+	err := service.Validate.Struct(request)
+	helper.PanicIfError(err)
+
+	// validate user
+	if auth.Role != "customer" {
+		err := &exception.ErrorSendToResponse{Err: "Only customer can create loan"}
+		helper.PanicIfError(err)
+	}
+
+	//  find limit
+	limit := service.LimitRepository.FindByID(tx, &auth.ID, &request.Period)
 
 	//  validate limit
 	if limit.ID == 0 {
-		helper.SendErrorResponse(c, http.StatusNotFound, "Limit not found")
-		// return web.TransactionResponse{}
+		err := &exception.ErrorSendToResponse{Err: "Limit not found"}
+		helper.PanicIfError(err)
 	}
 
-	//  validate limit transaction
-	if limit.LimitAmount < request.InstalmentAmount {
-		helper.SendErrorResponse(c, http.StatusBadRequest, "Insufficient limit")
-		// return web.TransactionResponse{}
+	// Validasi apakah limit cukup untuk harga barang (OnTheRoad)
+	if limit.LimitAmount < request.OnTheRoad {
+		err := &exception.ErrorSendToResponse{Err: "Insufficient limit for the requested product"}
+		helper.PanicIfError(err)
+	}
+
+	// Perhitungan total biaya pinjaman
+	totalInterest := request.OnTheRoad * request.InterestAmount * float64(request.Period) / 100
+	totalAmount := request.AdminFee + totalInterest
+
+	// Hitung cicilan per bulan
+	instalmentAmount := totalAmount / float64(request.Period)
+
+	// Validasi apakah limit cukup untuk cicilan bulanan
+	if limit.LimitAmount < totalAmount {
+		err := &exception.ErrorSendToResponse{Err: "Insufficient limit for the requested product "}
+		helper.PanicIfError(err)
 	}
 
 	transaction := &domain.Transaction{
@@ -72,7 +94,7 @@ func (service *TransactionServiceImpl) CreateLoanSubmission(auth *auth.AccessDet
 		// Optional Fields for Loan
 		OnTheRoad:        request.OnTheRoad,
 		AdminFee:         request.AdminFee,
-		InstalmentAmount: request.InstalmentAmount,
+		InstalmentAmount: instalmentAmount,
 		InterestAmount:   request.InterestAmount,
 		Period:           request.Period,
 		ProductID:        request.ProductID,

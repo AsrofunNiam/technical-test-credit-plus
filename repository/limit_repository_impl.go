@@ -14,23 +14,23 @@ func NewLimitRepository() LimitRepository {
 }
 
 func (repository *LimitRepositoryImpl) FindAll(db *gorm.DB, filters *map[string]string) domain.Limits {
-	Limits := domain.Limits{}
+	limits := domain.Limits{}
 	tx := db.Model(&domain.Limit{})
 
 	err := helper.ApplyFilter(tx, filters)
 	helper.PanicIfError(err)
 
-	err = tx.Find(&Limits).Error
+	err = tx.Find(&limits).Error
 	helper.PanicIfError(err)
 
-	return Limits
+	return limits
 }
 
-func (repository *LimitRepositoryImpl) FindByID(db *gorm.DB, id *uint) domain.Limit {
-	var Limit domain.Limit
-	err := db.First(&Limit, id).Error
+func (repository *LimitRepositoryImpl) FindByID(db *gorm.DB, userID *uint, tenor *int) domain.Limit {
+	var limit domain.Limit
+	err := db.Where("user_id = ? AND tenor = ?", userID, tenor).First(&limit).Error
 	helper.PanicIfError(err)
-	return Limit
+	return limit
 }
 
 func (repository *LimitRepositoryImpl) Update(db *gorm.DB, limit *domain.Limit) *domain.Limit {

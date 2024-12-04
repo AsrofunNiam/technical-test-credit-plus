@@ -19,12 +19,9 @@ type CreateAuthFunc func(userID uint, tokenDetails *TokenDetails)
 
 type AccessDetails struct {
 	ID        uint
-	UserName  string
-	FirstName string
-	LastName  string
-
-	// alternative
-	Role string
+	FullName  string
+	LegalName string
+	Role      string
 }
 
 type TokenDetails struct {
@@ -69,6 +66,7 @@ func CreateToken(user *domain.User, userAgent, remoteAddress *string, createAuth
 	atClaims["id"] = user.ID
 	atClaims["full_name"] = user.FullName
 	atClaims["legal_name"] = user.LegalName
+	atClaims["role"] = user.Role
 
 	atClaims["exp"] = td.AtExpired
 	at := jwt.NewWithClaims(jwt.SigningMethodHS256, atClaims)
@@ -99,9 +97,8 @@ func ExtractTokenMetadata(stringToken string) (*AccessDetails, error) {
 		userID := uint(claims["id"].(float64))
 		return &AccessDetails{
 			ID:        userID,
-			UserName:  claims["user_name"].(string),
-			FirstName: claims["first_name"].(string),
-			LastName:  claims["last_name"].(string),
+			FullName:  claims["full_name"].(string),
+			LegalName: claims["legal_name"].(string),
 			Role:      claims["role"].(string),
 		}, nil
 	}

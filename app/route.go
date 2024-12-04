@@ -14,6 +14,8 @@ func NewRouter(db *gorm.DB, validate *validator.Validate) *gin.Engine {
 	router.UseRawPath = true
 
 	route.UserRoute(router, db, validate)
+	route.ProductRoute(router, db, validate)
+	route.TransactionRoute(router, db, validate)
 
 	return router
 }

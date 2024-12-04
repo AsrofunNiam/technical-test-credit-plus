@@ -1,6 +1,8 @@
 package domain
 
 import (
+	"time"
+
 	"github.com/AsrofunNiam/technical-test-credit-plus/model/web"
 	"gorm.io/gorm"
 )
@@ -14,14 +16,15 @@ type User struct {
 	DeletedByID *uint `gorm:""`
 
 	// Fields
-	FullName      string `gorm:"size:200;uniqueIndex:idx_users"`
-	LegalName     string `gorm:"size:200"`
-	PlaceOfBirth  string `gorm:"size:200"`
-	DateOfBirth   string `gorm:"size:200"`
-	Salary        float64
-	IdentityImage string `gorm:"size:200"`
-	FaceImage     string `gorm:"size:200"`
-	Password      string `gorm:"size:100"`
+	FullName      string    `gorm:"size:200;uniqueIndex:idx_users"`
+	LegalName     string    `gorm:"size:200"`
+	PlaceOfBirth  string    `gorm:"size:200"`
+	DateOfBirth   time.Time `gorm:"type:date;not null"`
+	Salary        float64   `gorm:"type:decimal(20,2);not null"`
+	IdentityImage string    `gorm:"size:200"`
+	FaceImage     string    `gorm:"size:200"`
+	Password      string    `gorm:"size:100"`
+	Role          string    `gorm:"size:100"`
 }
 
 func (user *User) ToUserResponse() web.UserResponse {
@@ -31,6 +34,7 @@ func (user *User) ToUserResponse() web.UserResponse {
 		// Fields
 		FullName:  user.FullName,
 		LegalName: user.LegalName,
+		Role:      user.Role,
 	}
 }
 

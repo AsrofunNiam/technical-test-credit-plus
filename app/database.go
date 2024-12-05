@@ -33,8 +33,8 @@ func ConnectDatabase(user, host, password, port, db string) *gorm.DB {
 		&domain.User{},
 		&domain.Limit{},
 		&domain.Transaction{},
-		&domain.Company{},
 		&domain.Product{},
+		&domain.Company{},
 		&domain.ProductPrice{},
 		&domain.Currency{},
 	)

@@ -28,8 +28,12 @@ func ErrorHandler() gin.HandlerFunc {
 func NewRouter(db *gorm.DB, validate *validator.Validate) *gin.Engine {
 
 	router := gin.New()
+
+	//  exception middleware
 	router.Use(ErrorHandler())
 	router.UseRawPath = true
+
+	// route path
 	route.UserRoute(router, db, validate)
 	route.ProductRoute(router, db, validate)
 	route.TransactionRoute(router, db, validate)

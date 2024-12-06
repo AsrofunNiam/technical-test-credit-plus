@@ -8,6 +8,11 @@ import (
 type Products []Product
 type Product struct {
 	gorm.Model
+	CreatedByID uint `gorm:""`
+	UpdatedByID uint `gorm:""`
+	DeletedByID uint `gorm:""`
+
+	// Required Fields
 	Name        string `gorm:"type:varchar(255);not null"`
 	Type        string `gorm:"type:text"`
 	CompanyCode uint   `gorm:"not null"`

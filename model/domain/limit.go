@@ -8,6 +8,9 @@ import (
 type Limits []Limit
 type Limit struct {
 	gorm.Model
+	CreatedByID uint    `gorm:""`
+	UpdatedByID uint    `gorm:""`
+	DeletedByID uint    `gorm:""`
 	UserID      uint    `gorm:"not null"`
 	Tenor       int     `gorm:"not null"`
 	LimitAmount float64 `gorm:"type:decimal(10,2);not null" `

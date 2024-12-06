@@ -4,8 +4,11 @@ import "github.com/AsrofunNiam/technical-test-credit-plus/model/web"
 
 type Currencies []Currency
 type Currency struct {
-	ID   uint   `gorm:"primaryKey;autoIncrement"`
-	Name string `gorm:"type:varchar(15);not null"`
+	CreatedByID uint   `gorm:""`
+	UpdatedByID uint   `gorm:""`
+	DeletedByID uint   `gorm:""`
+	ID          uint   `gorm:"primaryKey;autoIncrement"`
+	Name        string `gorm:"type:varchar(15);not null"`
 }
 
 func (currency *Currency) ToCurrencyResponse() web.CurrencyResponse {

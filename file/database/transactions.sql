@@ -1,0 +1,2 @@
+insert into CREDIT_PLUS.transactions (id, created_at, updated_at, deleted_at, created_by_id, updated_by_id, deleted_by_id, user_id, number_contract, on_the_road, admin_fee, instalment_amount, interest_amount, product_id, product_name, period, transaction_type)
+values  (10, '2024-12-06 07:35:12.109', '2024-12-06 07:35:12.109', null, 2, 0, 0, 2, '2-1-1733470510', 15000000.00, 500000.00, 15500000.00, 1550000.00, 1, 'Honda Beat', 12, 'purchase');

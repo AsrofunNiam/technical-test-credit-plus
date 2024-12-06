@@ -8,6 +8,9 @@ import (
 type Companies []Company
 type Company struct {
 	gorm.Model
+	CreatedByID uint   `gorm:""`
+	UpdatedByID uint   `gorm:""`
+	DeletedByID uint   `gorm:""`
 	Name        string `gorm:"size:200;uniqueIndex:idx_companies"`
 	Description string `gorm:"type:text"`
 	Address     string `gorm:"type:text"`

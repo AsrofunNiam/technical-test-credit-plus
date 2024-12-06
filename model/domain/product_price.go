@@ -10,11 +10,14 @@ import (
 type ProductPrices []ProductPrice
 type ProductPrice struct {
 	gorm.Model
-	ProductID  uint      `gorm:"not null"`
-	CurrencyID uint      `gorm:"not null"`
-	Price      float64   `gorm:"type:decimal(20,2);not null"`
-	StartDate  time.Time `gorm:"type:date;not null"`
-	EndDate    time.Time `gorm:"type:date;not null"`
+	CreatedByID uint      `gorm:""`
+	UpdatedByID uint      `gorm:""`
+	DeletedByID uint      `gorm:""`
+	ProductID   uint      `gorm:"not null"`
+	CurrencyID  uint      `gorm:"not null"`
+	Price       float64   `gorm:"type:decimal(20,2);not null"`
+	StartDate   time.Time `gorm:"type:date;not null"`
+	EndDate     time.Time `gorm:"type:date;not null"`
 
 	// Relations
 	Currency Currency `gorm:"foreignKey:CurrencyID;references:ID"`

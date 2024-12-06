@@ -41,8 +41,6 @@ For project technical test, say how it is licensed.
 ## Project status
 This project to technical test on  PT KB Finansia Multi Finance
 
-## Postman  
-
 ## Please refer to the reading materials for further details
 1. https://go.dev 
 
@@ -63,9 +61,26 @@ This project to technical test on  PT KB Finansia Multi Finance
 5. $go get github.com/golang-jwt/jwt/v5
 6. $go get github.com/twinj/uuid
 7. $go get github.com/go-playground/validator/v10
+8. $go get github.com/stretchr/testify/mock
+   
+## Setup
+1. **Create the `.env` file**  
+   In the `project_name/configuration/` directory, create a `.env` file to configure your environment variables.
 
-## Setting
-1. create file project_name/configuration/.env
+## Running the Project
+1. **Run the Project**  
+   Execute the following command to run the project:
+   ```bash
+   go run main.go 
 
-## Running Project 
-1. go run main.go 
+3. In the database.go file, there's an auto-migrate function that will automatically create the tables and their schemas in the database.
+2. SQL Data Files
+    Move all SQL files containing the data for each table to the appropriate folder.
+3. JSON Export Files
+    Move or export JSON files (e.g., file.json) to the appropriate tool (Postman, Swagger) for testing.
+
+## Testing Project 
+1. Token Requirement
+    Every request will require a token.
+2. Login to Get Your Token
+    To obtain the token, simply run the exported JSON file at the endpoint: POST http://localhost:8089/users/login

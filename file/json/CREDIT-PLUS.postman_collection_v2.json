@@ -1,0 +1,361 @@
+{
+	"info": {
+		"_postman_id": "bf68b99f-3782-4881-9a41-e968ae6ed341",
+		"name": "CREDIT-PLUS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "15196118"
+	},
+	"item": [
+		{
+			"name": "TRANSACTION",
+			"item": [
+				{
+					"name": "transactions/loan-submission",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NfdXVpZCI6ImM1NmJjMzIzLTRjNTctNDczZi1iZTQ0LThlMmIwMTUxN2E0ZCIsImF1dGhvcml6ZWQiOnRydWUsImV4cCI6MTczMzU5MjIxOSwiZnVsbF9uYW1lIjoiYXNyb2Z1bl9uaWFtIiwiaWQiOjIsImxlZ2FsX25hbWUiOiJBc3JvZnVuIiwicm9sZSI6ImN1c3RvbWVyIn0.Oe4TMnm-nw5kfQqII3X2-2XrwEOc0ZbwpdgRv38fxlY"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \n  \"admin_fee\": 500000,  \n  \"product_id\": 1,\n  \"period\": 12,\n  \"transaction_type\": \"purchase\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{LOCAL808}}9/transactions/loan-submission"
+					},
+					"response": [
+						{
+							"name": "failed-json-format",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n  \"admin_fee\": 500000,  \n  \"product_id\": 1,\n  \"period\": 0,\n  \"transaction_type\": \"purchase\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{LOCAL808}}9/transactions/loan-submission"
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 06 Dec 2024 07:33:07 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "162"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"message\": \"Bad Request\",\n    \"data\": \"Error : Key: 'TransactionCreateRequest.Period' Error:Field validation for 'Period' failed on the 'required' tag\"\n}"
+						},
+						{
+							"name": "failed-limit",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n  \"admin_fee\": 500000,  \n  \"product_id\": 1,\n  \"period\": 12,\n  \"transaction_type\": \"purchase\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{LOCAL808}}9/transactions/loan-submission"
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 06 Dec 2024 07:37:31 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "86"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"message\": \"Insufficient limit for the requested product\",\n    \"data\": null\n}"
+						},
+						{
+							"name": "succes",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n  \"admin_fee\": 500000,  \n  \"product_id\": 1,\n  \"period\": 12,\n  \"transaction_type\": \"purchase\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{LOCAL808}}9/transactions/loan-submission"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 06 Dec 2024 07:35:12 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "680"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Transaction created successfully\",\n    \"data\": {\n        \"id\": 10,\n        \"user_id\": 2,\n        \"number_contract\": \"2-1-1733470510\",\n        \"on_the_road\": 15000000,\n        \"admin_fee\": 500000,\n        \"instalment_amount\": 15500000,\n        \"interest_amount\": 1550000,\n        \"period\": 12,\n        \"transaction_type\": \"purchase\",\n        \"user\": {\n            \"id\": 0,\n            \"full_name\": \"\",\n            \"legal_name\": \"\",\n            \"place_of_birth\": \"\",\n            \"date_of_birth\": \"\",\n            \"salary\": 0,\n            \"role\": \"\",\n            \"number_phone\": \"\",\n            \"email\": \"\"\n        },\n        \"product\": {\n            \"id\": 0,\n            \"name\": \"\",\n            \"type\": \"\",\n            \"company_code\": 0,\n            \"description\": \"\",\n            \"available\": false,\n            \"company\": {\n                \"id\": 0,\n                \"name\": \"\",\n                \"description\": \"\",\n                \"address\": \"\"\n            },\n            \"product_price\": {\n                \"id\": 0,\n                \"product_id\": 0,\n                \"price\": 0,\n                \"start_date\": \"0001-01-01\",\n                \"end_date\": \"0001-01-01\",\n                \"currency\": {\n                    \"id\": 0,\n                    \"name\": \"\"\n                }\n            }\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "transactions",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NfdXVpZCI6ImM1NmJjMzIzLTRjNTctNDczZi1iZTQ0LThlMmIwMTUxN2E0ZCIsImF1dGhvcml6ZWQiOnRydWUsImV4cCI6MTczMzU5MjIxOSwiZnVsbF9uYW1lIjoiYXNyb2Z1bl9uaWFtIiwiaWQiOjIsImxlZ2FsX25hbWUiOiJBc3JvZnVuIiwicm9sZSI6ImN1c3RvbWVyIn0.Oe4TMnm-nw5kfQqII3X2-2XrwEOc0ZbwpdgRv38fxlY"
+							}
+						],
+						"url": "http://localhost:8089/transactions"
+					},
+					"response": [
+						{
+							"name": "transactions",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NfdXVpZCI6ImM1NmJjMzIzLTRjNTctNDczZi1iZTQ0LThlMmIwMTUxN2E0ZCIsImF1dGhvcml6ZWQiOnRydWUsImV4cCI6MTczMzU5MjIxOSwiZnVsbF9uYW1lIjoiYXNyb2Z1bl9uaWFtIiwiaWQiOjIsImxlZ2FsX25hbWUiOiJBc3JvZnVuIiwicm9sZSI6ImN1c3RvbWVyIn0.Oe4TMnm-nw5kfQqII3X2-2XrwEOc0ZbwpdgRv38fxlY"
+									}
+								],
+								"url": "http://localhost:8089/transactions"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 06 Dec 2024 08:05:51 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "769"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Record found\",\n    \"data\": [\n        {\n            \"id\": 10,\n            \"user_id\": 2,\n            \"number_contract\": \"2-1-1733470510\",\n            \"on_the_road\": 15000000,\n            \"admin_fee\": 500000,\n            \"instalment_amount\": 15500000,\n            \"interest_amount\": 1550000,\n            \"period\": 12,\n            \"transaction_type\": \"purchase\",\n            \"user\": {\n                \"id\": 2,\n                \"full_name\": \"asrofun_niam\",\n                \"legal_name\": \"Asrofun\",\n                \"place_of_birth\": \"\",\n                \"date_of_birth\": \"\",\n                \"salary\": 0,\n                \"role\": \"customer\",\n                \"number_phone\": \"+6282226572454\",\n                \"email\": \"asrofunniam@gmail.com\"\n            },\n            \"product\": {\n                \"id\": 1,\n                \"name\": \"Honda Beat\",\n                \"type\": \"Motor\",\n                \"company_code\": 1,\n                \"description\": \"Skuter matik hemat bahan bakar.\",\n                \"available\": true,\n                \"company\": {\n                    \"id\": 0,\n                    \"name\": \"\",\n                    \"description\": \"\",\n                    \"address\": \"\"\n                },\n                \"product_price\": {\n                    \"id\": 0,\n                    \"product_id\": 0,\n                    \"price\": 0,\n                    \"start_date\": \"0001-01-01\",\n                    \"end_date\": \"0001-01-01\",\n                    \"currency\": {\n                        \"id\": 0,\n                        \"name\": \"\"\n                    }\n                }\n            }\n        }\n    ]\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "PRODUCTS",
+			"item": [
+				{
+					"name": "products/id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NfdXVpZCI6ImM1NmJjMzIzLTRjNTctNDczZi1iZTQ0LThlMmIwMTUxN2E0ZCIsImF1dGhvcml6ZWQiOnRydWUsImV4cCI6MTczMzU5MjIxOSwiZnVsbF9uYW1lIjoiYXNyb2Z1bl9uaWFtIiwiaWQiOjIsImxlZ2FsX25hbWUiOiJBc3JvZnVuIiwicm9sZSI6ImN1c3RvbWVyIn0.Oe4TMnm-nw5kfQqII3X2-2XrwEOc0ZbwpdgRv38fxlY"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NfdXVpZCI6ImJlY2ZkMzMzLTgwNDUtNGQyNi1hN2EyLTUwYzk5YjM2YzUwNyIsImF1dGhvcml6ZWQiOnRydWUsImV4cCI6MTczMDUxNzY3MCwiZmlyc3RfbmFtZSI6IkFzcm9mdW4iLCJpZCI6MiwibGFzdF9uYW1lIjoiTmlhbSIsInJvbGUiOiJjdXN0b21lciIsInVzZXJfbmFtZSI6ImFzcm9mdW5fbmlhbSJ9.CVQRbyMXvAxrAh_kp5Rm9Hiry9KKhCHqQP1pTft8Wd4"
+							}
+						],
+						"url": "http://localhost:8089/products/2"
+					},
+					"response": [
+						{
+							"name": "products/id",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NfdXVpZCI6ImJlY2ZkMzMzLTgwNDUtNGQyNi1hN2EyLTUwYzk5YjM2YzUwNyIsImF1dGhvcml6ZWQiOnRydWUsImV4cCI6MTczMDUxNzY3MCwiZmlyc3RfbmFtZSI6IkFzcm9mdW4iLCJpZCI6MiwibGFzdF9uYW1lIjoiTmlhbSIsInJvbGUiOiJjdXN0b21lciIsInVzZXJfbmFtZSI6ImFzcm9mdW5fbmlhbSJ9.CVQRbyMXvAxrAh_kp5Rm9Hiry9KKhCHqQP1pTft8Wd4"
+									}
+								],
+								"url": "http://localhost:8089/products/2"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 06 Dec 2024 07:27:06 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "382"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Record found\",\n    \"data\": {\n        \"id\": 2,\n        \"name\": \"Yamaha NMAX\",\n        \"type\": \"Motor\",\n        \"company_code\": 1,\n        \"description\": \"Skuter matik premium dengan desain modern.\",\n        \"available\": true,\n        \"company\": {\n            \"id\": 0,\n            \"name\": \"\",\n            \"description\": \"\",\n            \"address\": \"\"\n        },\n        \"product_price\": {\n            \"id\": 2,\n            \"product_id\": 2,\n            \"price\": 22000000,\n            \"start_date\": \"2024-01-01\",\n            \"end_date\": \"2024-12-31\",\n            \"currency\": {\n                \"id\": 0,\n                \"name\": \"\"\n            }\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "products",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NfdXVpZCI6ImM1NmJjMzIzLTRjNTctNDczZi1iZTQ0LThlMmIwMTUxN2E0ZCIsImF1dGhvcml6ZWQiOnRydWUsImV4cCI6MTczMzU5MjIxOSwiZnVsbF9uYW1lIjoiYXNyb2Z1bl9uaWFtIiwiaWQiOjIsImxlZ2FsX25hbWUiOiJBc3JvZnVuIiwicm9sZSI6ImN1c3RvbWVyIn0.Oe4TMnm-nw5kfQqII3X2-2XrwEOc0ZbwpdgRv38fxlY"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{LOCAL808}}9/products"
+					},
+					"response": [
+						{
+							"name": "products",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{LOCAL808}}9/products"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 06 Dec 2024 07:26:36 GMT"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Record found\",\n    \"data\": [\n        {\n            \"id\": 1,\n            \"name\": \"Honda Beat\",\n            \"type\": \"Motor\",\n            \"company_code\": 1,\n            \"description\": \"Skuter matik hemat bahan bakar.\",\n            \"available\": true,\n            \"company\": {\n                \"id\": 1,\n                \"name\": \"PT Astra Honda Motor\",\n                \"description\": \"Produsen motor Honda di Indonesia\",\n                \"address\": \"Jakarta, Indonesia\"\n            },\n            \"product_price\": {\n                \"id\": 1,\n                \"product_id\": 1,\n                \"price\": 15000000,\n                \"start_date\": \"2024-01-01\",\n                \"end_date\": \"2025-01-31\",\n                \"currency\": {\n                    \"id\": 0,\n                    \"name\": \"\"\n                }\n            }\n        },\n        {\n            \"id\": 2,\n            \"name\": \"Yamaha NMAX\",\n            \"type\": \"Motor\",\n            \"company_code\": 1,\n            \"description\": \"Skuter matik premium dengan desain modern.\",\n            \"available\": true,\n            \"company\": {\n                \"id\": 1,\n                \"name\": \"PT Astra Honda Motor\",\n                \"description\": \"Produsen motor Honda di Indonesia\",\n                \"address\": \"Jakarta, Indonesia\"\n            },\n            \"product_price\": {\n                \"id\": 2,\n                \"product_id\": 2,\n                \"price\": 22000000,\n                \"start_date\": \"2024-01-01\",\n                \"end_date\": \"2024-12-31\",\n                \"currency\": {\n                    \"id\": 0,\n                    \"name\": \"\"\n                }\n            }\n        },\n        {\n            \"id\": 3,\n            \"name\": \"Suzuki GSX-R150\",\n            \"type\": \"Motor\",\n            \"company_code\": 2,\n            \"description\": \"Motor sport dengan mesin bertenaga 150cc.\",\n            \"available\": true,\n            \"company\": {\n                \"id\": 2,\n                \"name\": \"PT Toyota Astra Motor\",\n                \"description\": \"Distributor mobil Toyota di Indonesia\",\n                \"address\": \"Jakarta, Indonesia\"\n            },\n            \"product_price\": {\n                \"id\": 3,\n                \"product_id\": 3,\n                \"price\": 30000000,\n                \"start_date\": \"2024-01-01\",\n                \"end_date\": \"2024-12-31\",\n                \"currency\": {\n                    \"id\": 0,\n                    \"name\": \"\"\n                }\n            }\n        },\n        {\n            \"id\": 4,\n            \"name\": \"Kawasaki Ninja 250\",\n            \"type\": \"Motor\",\n            \"company_code\": 3,\n            \"description\": \"Motor sport dengan mesin 250cc yang bertenaga.\",\n            \"available\": true,\n            \"company\": {\n                \"id\": 3,\n                \"name\": \"PT Suzuki Indomobil Motor\",\n                \"description\": \"Produsen motor dan mobil Suzuki\",\n                \"address\": \"Bekasi, Jawa Barat\"\n            },\n            \"product_price\": {\n                \"id\": 4,\n                \"product_id\": 4,\n                \"price\": 25000000,\n                \"start_date\": \"2024-01-01\",\n                \"end_date\": \"2024-12-31\",\n                \"currency\": {\n                    \"id\": 0,\n                    \"name\": \"\"\n                }\n            }\n        },\n        {\n            \"id\": 5,\n            \"name\": \"Toyota Avanza\",\n            \"type\": \"Mobil\",\n            \"company_code\": 4,\n            \"description\": \"Mobil keluarga MPV yang nyaman dan hemat bahan bakar.\",\n            \"available\": true,\n            \"company\": {\n                \"id\": 4,\n                \"name\": \"PT Yamaha Indonesia Motor\",\n                \"description\": \"Produsen motor Yamaha di Indonesia\",\n                \"address\": \"Jakarta, Indonesia\"\n            },\n            \"product_price\": {\n                \"id\": 5,\n                \"product_id\": 5,\n                \"price\": 400000000,\n                \"start_date\": \"2024-01-01\",\n                \"end_date\": \"2024-12-31\",\n                \"currency\": {\n                    \"id\": 0,\n                    \"name\": \"\"\n                }\n            }\n        },\n        {\n            \"id\": 6,\n            \"name\": \"Honda Civic\",\n            \"type\": \"Mobil\",\n            \"company_code\": 4,\n            \"description\": \"Sedan premium dengan desain sporty dan mesin bertenaga.\",\n            \"available\": true,\n            \"company\": {\n                \"id\": 4,\n                \"name\": \"PT Yamaha Indonesia Motor\",\n                \"description\": \"Produsen motor Yamaha di Indonesia\",\n                \"address\": \"Jakarta, Indonesia\"\n            },\n            \"product_price\": {\n                \"id\": 6,\n                \"product_id\": 6,\n                \"price\": 500000000,\n                \"start_date\": \"2024-01-01\",\n                \"end_date\": \"2024-12-31\",\n                \"currency\": {\n                    \"id\": 0,\n                    \"name\": \"\"\n                }\n            }\n        },\n        {\n            \"id\": 7,\n            \"name\": \"Mitsubishi Xpander\",\n            \"type\": \"Mobil\",\n            \"company_code\": 5,\n            \"description\": \"MPV modern dengan desain stylish dan fitur canggih.\",\n            \"available\": true,\n            \"company\": {\n                \"id\": 5,\n                \"name\": \"PT Mitsubishi Motors Krama Yudha Sales\",\n                \"description\": \"Distributor mobil Mitsubishi\",\n                \"address\": \"Jakarta, Indonesia\"\n            },\n            \"product_price\": {\n                \"id\": 7,\n                \"product_id\": 7,\n                \"price\": 550000000,\n                \"start_date\": \"2024-01-01\",\n                \"end_date\": \"2024-12-31\",\n                \"currency\": {\n                    \"id\": 0,\n                    \"name\": \"\"\n                }\n            }\n        },\n        {\n            \"id\": 8,\n            \"name\": \"Nissan Kicks\",\n            \"type\": \"Mobil\",\n            \"company_code\": 5,\n            \"description\": \"SUV kompak dengan fitur hybrid dan desain futuristik.\",\n            \"available\": true,\n            \"company\": {\n                \"id\": 5,\n                \"name\": \"PT Mitsubishi Motors Krama Yudha Sales\",\n                \"description\": \"Distributor mobil Mitsubishi\",\n                \"address\": \"Jakarta, Indonesia\"\n            },\n            \"product_price\": {\n                \"id\": 8,\n                \"product_id\": 8,\n                \"price\": 600000000,\n                \"start_date\": \"2024-01-01\",\n                \"end_date\": \"2024-12-31\",\n                \"currency\": {\n                    \"id\": 0,\n                    \"name\": \"\"\n                }\n            }\n        },\n        {\n            \"id\": 9,\n            \"name\": \"Suzuki Ertiga\",\n            \"type\": \"Mobil\",\n            \"company_code\": 2,\n            \"description\": \"MPV dengan kabin luas dan fitur kenyamanan keluarga.\",\n            \"available\": true,\n            \"company\": {\n                \"id\": 2,\n                \"name\": \"PT Toyota Astra Motor\",\n                \"description\": \"Distributor mobil Toyota di Indonesia\",\n                \"address\": \"Jakarta, Indonesia\"\n            },\n            \"product_price\": {\n                \"id\": 9,\n                \"product_id\": 9,\n                \"price\": 800000000,\n                \"start_date\": \"2024-01-01\",\n                \"end_date\": \"2024-12-31\",\n                \"currency\": {\n                    \"id\": 0,\n                    \"name\": \"\"\n                }\n            }\n        },\n        {\n            \"id\": 10,\n            \"name\": \"BMW X5\",\n            \"type\": \"Mobil\",\n            \"company_code\": 6,\n            \"description\": \"SUV mewah dengan performa tinggi dan fitur premium.\",\n            \"available\": true,\n            \"company\": {\n                \"id\": 6,\n                \"name\": \"PT Nissan Motor Indonesia\",\n                \"description\": \"Distributor mobil Nissan\",\n                \"address\": \"Jakarta, Indonesia\"\n            },\n            \"product_price\": {\n                \"id\": 10,\n                \"product_id\": 10,\n                \"price\": 1200000000,\n                \"start_date\": \"2024-01-01\",\n                \"end_date\": \"2024-12-31\",\n                \"currency\": {\n                    \"id\": 0,\n                    \"name\": \"\"\n                }\n            }\n        }\n    ]\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "users",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"access_token\" :\"YXNyb2Z1bm5pYW1AZ21haWwuY29tOnNheWExMjM=\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8089/users/login"
+			},
+			"response": [
+				{
+					"name": "users",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"access_token\" :\"YXNyb2Z1bm5pYW1AZ21haWwuY29tOnNheWExMjM=\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8089/users/login"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 04 Dec 2024 17:10:09 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "632"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"success\": true,\n    \"message\": \"Login success\",\n    \"data\": {\n        \"id\": 2,\n        \"user_name\": \"asrofun_niam\",\n        \"legal_name\": \"Asrofun\",\n        \"role\": \"\",\n        \"access_token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NfdXVpZCI6IjdhYmIzOTRlLWJmZTktNDk3NS1iYzU3LWYyNGJjZDUzZWM1MCIsImF1dGhvcml6ZWQiOnRydWUsImV4cCI6MTczMzU5MTQwOSwiZnVsbF9uYW1lIjoiYXNyb2Z1bl9uaWFtIiwiaWQiOjIsImxlZ2FsX25hbWUiOiJBc3JvZnVuIiwicm9sZSI6ImN1c3RvbWVyIn0.iMqV9jHp0qUIUXnNcv-8W2o5bcI1BZSSwqnQvWXvQkY\",\n        \"refresh_token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzM5MzcwMDksInJlZnJlc2hfdXVpZCI6IjAyNzFmNDg4LTQ0NDYtNDM1NC05YzBlLWE3ZjE1ZWVkNjg1OSJ9.xbU6Mgup14biI0e1XE8CSwMokvp3hJp-aGfI1gJR7NY\"\n    }\n}"
+				}
+			]
+		}
+	]
+}

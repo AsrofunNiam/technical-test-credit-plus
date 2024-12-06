@@ -5,7 +5,6 @@ import (
 	"os"
 	"time"
 
-	"github.com/AsrofunNiam/technical-test-credit-plus/model/domain"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
@@ -30,16 +29,17 @@ func ConnectDatabase(user, host, password, port, db string) *gorm.DB {
 
 	//  function auto migrate, generate schema table
 	err = database.AutoMigrate(
-		&domain.User{},
-		&domain.Limit{},
-		&domain.Transaction{},
-		&domain.Product{},
-		&domain.Company{},
-		&domain.ProductPrice{},
-		&domain.Currency{},
+	// &domain.User{},
+	// &domain.Limit{},
+	// &domain.Transaction{},
+	// &domain.Product{},
+	// &domain.Company{},
+	// &domain.ProductPrice{},
+	// &domain.Currency{},
 	)
 	if err != nil {
 		panic("failed to auto migrate schema")
+
 	}
 
 	return database

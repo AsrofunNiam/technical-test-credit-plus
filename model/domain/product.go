@@ -30,8 +30,8 @@ func (product *Product) ToProductResponse() web.ProductResponse {
 		Available:   product.Available,
 
 		// Relations
-		Company: product.Company.ToCompanyResponse(),
-		// ProductPrice: product.ProductPrice.ToProductPriceResponse(),
+		Company:      product.Company.ToCompanyResponse(),
+		ProductPrice: product.ProductPrice.ToProductPriceResponse(),
 	}
 }
 

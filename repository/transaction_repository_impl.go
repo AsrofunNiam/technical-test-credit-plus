@@ -20,7 +20,7 @@ func (repository *TransactionRepositoryImpl) FindAll(db *gorm.DB, filters *map[s
 	err := helper.ApplyFilter(tx, filters)
 	helper.PanicIfError(err)
 
-	err = tx.Find(&transactions).Error
+	err = tx.Preload("Product").Preload("User").Find(&transactions).Error
 	helper.PanicIfError(err)
 
 	return transactions

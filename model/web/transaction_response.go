@@ -3,7 +3,7 @@ package web
 type TransactionResponse struct {
 	ID               uint            `json:"id"`
 	UserID           uint            `json:"user_id"`
-	NumberContract   uint            `json:"number_contract"`
+	NumberContract   string          `json:"number_contract"`
 	OnTheRoad        float64         `json:"on_the_road"`
 	AdminFee         float64         `json:"admin_fee"`
 	InstalmentAmount float64         `json:"instalment_amount"`

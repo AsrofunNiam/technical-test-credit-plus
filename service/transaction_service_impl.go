@@ -1,6 +1,9 @@
 package service
 
 import (
+	"fmt"
+	"time"
+
 	"github.com/AsrofunNiam/technical-test-credit-plus/auth"
 	"github.com/AsrofunNiam/technical-test-credit-plus/exception"
 	"github.com/AsrofunNiam/technical-test-credit-plus/helper"
@@ -48,63 +51,63 @@ func (service *TransactionServiceImpl) CreateLoanSubmission(auth *auth.AccessDet
 	tx := service.DB.Begin()
 	defer helper.CommitOrRollback(tx)
 
-	//  validate request
+	//  Validate request
 	err := service.Validate.Struct(request)
 	helper.PanicIfError(err)
 
-	// validate user
+	// Validate user role
 	if auth.Role != "customer" {
-		err := &exception.ErrorSendToResponse{Err: "Only customer can create loan"}
+		err := &exception.ErrorSendToResponse{Err: "Only customers can create loans"}
 		helper.PanicIfError(err)
 	}
 
-	//  find limit
+	// Find limit
 	limit := service.LimitRepository.FindByID(tx, &auth.ID, &request.Period)
 
-	//  validate limit
+	// Find product
+	product := service.ProductRepository.FindByID(tx, &request.ProductID)
+
+	// Validate limit existence
 	if limit.ID == 0 {
 		err := &exception.ErrorSendToResponse{Err: "Limit not found"}
 		helper.PanicIfError(err)
 	}
 
-	// Validasi apakah limit cukup untuk harga barang (OnTheRoad)
-	if limit.LimitAmount < request.OnTheRoad {
+	instalmentAmount := product.ProductPrice.Price + request.AdminFee
+
+	// Validate limit against instalment amount
+	if limit.LimitAmount < instalmentAmount {
 		err := &exception.ErrorSendToResponse{Err: "Insufficient limit for the requested product"}
 		helper.PanicIfError(err)
 	}
 
-	// Perhitungan total biaya pinjaman
-	totalInterest := request.OnTheRoad * request.InterestAmount * float64(request.Period) / 100
-	totalAmount := request.AdminFee + totalInterest
+	// Default bunga tahunan
+	interestYearValue := 10.0
 
-	// Hitung cicilan per bulan
-	instalmentAmount := totalAmount / float64(request.Period)
-
-	// Validasi apakah limit cukup untuk cicilan bulanan
-	if limit.LimitAmount < totalAmount {
-		err := &exception.ErrorSendToResponse{Err: "Insufficient limit for the requested product "}
-		helper.PanicIfError(err)
-	}
+	// Calculate bunga (metode flat)
+	interestAmount := instalmentAmount * (interestYearValue / 100) * (float64(request.Period) / 12)
 
 	transaction := &domain.Transaction{
 		// Required Fields
 		CreatedByID: auth.ID,
-		UserID:      request.UserID,
+		UserID:      auth.ID,
 
-		// Optional Fields for Loan
-		OnTheRoad:        request.OnTheRoad,
+		// Fields for Loan
+		OnTheRoad:        product.ProductPrice.Price,
 		AdminFee:         request.AdminFee,
 		InstalmentAmount: instalmentAmount,
-		InterestAmount:   request.InterestAmount,
+		InterestAmount:   interestAmount,
 		Period:           request.Period,
 		ProductID:        request.ProductID,
+		ProductName:      product.Name,
 		TransactionType:  request.TransactionType,
+		NumberContract:   fmt.Sprintf("%d-%d-%d", auth.ID, product.ID, time.Now().Unix()),
 	}
 
 	transaction = service.TransactionRepository.Create(tx, transaction)
 
-	// update limit
-	limit.LimitAmount -= request.InstalmentAmount
+	// Update limit
+	limit.LimitAmount -= instalmentAmount
 	service.LimitRepository.Update(tx, &limit)
 
 	return transaction.ToTransactionResponse()

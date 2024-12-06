@@ -42,13 +42,16 @@ For project technical test, say how it is licensed.
 This project to technical test on  PT KB Finansia Multi Finance
 
 ## Please refer to the reading materials for further details
-1. https://go.dev 
+1. https://go.dev
+
+## Documentation Articles
+1. https://www.notion.so
 
 ## Documentation Api
 1. https://app.swaggerhub.com/apis/technical-test-credit-plus/1.0.0
 
-## Documentation Articles
-1. https://www.notion.so
+## Documentation ERD
+1. https://drive.google.com/file/d/130d1pTjxBHPGQi-A9pDwqZDF4u99_DMw/view?usp=sharing
 
 ## Go version 
 1. $go version > go1.21.0

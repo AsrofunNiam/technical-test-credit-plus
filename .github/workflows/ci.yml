@@ -19,7 +19,7 @@ jobs:
         with:
           go-version: '1.22'
 
-	# Configure git to use GitHub token
+	    # Configure git to use GitHub token
       - name: Configure git to use token
         run: |
           git config --global url."https://${{ secrets.GITHUBTOKEN }}@github.com/".insteadOf "https://github.com/"

@@ -56,15 +56,18 @@ This project to technical test on  PT KB Finansia Multi Finance
 ## Go version 
 1. $go version > go1.21.0
 
-## Third-party Libraries  
-1. $go get gorm.io/gorm
-2. $go get gorm.io/driver/mysql
-3. $go get github.com/gin-gonic/gin
-4. $go get github.com/spf13/viper 
-5. $go get github.com/golang-jwt/jwt/v5
-6. $go get github.com/twinj/uuid
-7. $go get github.com/go-playground/validator/v10
-8. $go get github.com/stretchr/testify/mock
+## Third-party Libraries 
+Execute the following commands to install the libraries: 
+```shellscript
+go get gorm.io/gorm
+go get gorm.io/driver/mysql
+go get github.com/gin-gonic/gin
+go get github.com/spf13/viper 
+go get github.com/golang-jwt/jwt/v5
+go get github.com/twinj/uuid
+go get github.com/go-playground/validator/v10
+go get github.com/stretchr/testify/mock
+```
    
 ## Setup
 1. **Create the `.env` file**  

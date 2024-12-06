@@ -1,0 +1,12 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        GITHUB_TOKEN: "${GITHUB_TOKEN}"  
+        GITHUB_USERNAME: "${GITHUB_USERNAME}"  
+    ports:
+      - "8081:8081"  # Mapping port local to docker 
+volumes:
+  db_data:

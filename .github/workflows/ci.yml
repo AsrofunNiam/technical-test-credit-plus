@@ -1,0 +1,52 @@
+name: CI/CD Workflow
+
+on:
+  push:
+    tags:
+      - 'v*.*.*-release'
+      - 'v*.*.*-m*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        
+      - name: Set up Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: '1.22'
+
+      - name: Install dependencies
+        run: go mod download 
+        
+      - name: Deploy to Local
+        run: |
+          ssh user@localhost '
+            cd /Users/asrofunniam/Documents/PROJECT/OPPORTUNITY/TECHNICAL-TEST-CODE/technical-test-credit-plus &&
+            git pull https://${{ secrets.GITHUBUSERNAME }}:${{ secrets.GITHUBTOKEN }}@github.com/<org>/<repo>.git &&
+            docker compose build &&
+            docker compose up -d
+          '
+          
+      - name: Start SSH Agent
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.SERVER_SSH_PRIVATE_KEY }}
+
+      - name: Add VPS to known_hosts
+        run: |
+          mkdir -p ~/.ssh &&
+          ssh-keyscan -H ${{ secrets.SERVER_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Deploy to VPS
+        run: |
+          ssh azure_vm@${{ secrets.SERVER_HOST }} '
+            cd DOCKER/technical-test/technical-test-credit-plus &&
+            git pull https://${{ secrets.GITHUBUSERNAME }}:${{ secrets.GITHUBTOKEN }}@github.com/<org>/<repo>.git &&
+            docker compose build &&
+            docker compose up -d
+          '
+

@@ -1,0 +1,12 @@
+services: 
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile 
+    ports:
+      - "8081:8081"  # Mapping port local to docker 
+
+    volumes:
+      - ./configuration/.env:/app/configuration/.env
+volumes:
+  db_data:

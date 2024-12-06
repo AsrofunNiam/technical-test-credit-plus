@@ -76,10 +76,15 @@ go get github.com/stretchr/testify/mock
 ## Running the Project
 1. **Run the Project**  
    Execute the following command to run the project:
-   ```bash
-   go run main.go 
-
-3. In the database.go file, there's an auto-migrate function that will automatically create the tables and their schemas in the database.
+   ```shellscript
+   go run main.go
+   ``` 
+2. **Run the Project On Docker**
+   Execute the following command to run the project on docker:
+   ```shellscript
+   docker-compose up -d
+   ``` 
+4. In the database.go file, there's an auto-migrate function that will automatically create the tables and their schemas in the database.
 2. SQL Data Files
     Move all SQL files containing the data for each table to the appropriate folder.
 3. JSON Export Files

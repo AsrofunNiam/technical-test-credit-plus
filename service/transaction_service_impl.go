@@ -54,6 +54,8 @@ func (service *TransactionServiceImpl) CreateLoanSubmission(auth *auth.AccessDet
 	//  Validate request
 	err := service.Validate.Struct(request)
 	helper.PanicIfError(err)
+	channel := make(chan domain.Product)
+	defer close(channel)
 
 	// Validate user role
 	if auth.Role != "customer" {
@@ -61,11 +63,21 @@ func (service *TransactionServiceImpl) CreateLoanSubmission(auth *auth.AccessDet
 		helper.PanicIfError(err)
 	}
 
+	// Find product
+	// product := service.ProductRepository.FindByID(tx, &request.ProductID)
+
+	// implement chanel to find product
+	go func() {
+		product := service.ProductRepository.FindByID(tx, &request.ProductID)
+		channel <- product
+		fmt.Println("done query product")
+
+	}()
+
+	product := <-channel
+
 	// Find limit
 	limit := service.LimitRepository.FindByID(tx, &auth.ID, &request.Period)
-
-	// Find product
-	product := service.ProductRepository.FindByID(tx, &request.ProductID)
 
 	// Validate limit existence
 	if limit.ID == 0 {
@@ -81,10 +93,10 @@ func (service *TransactionServiceImpl) CreateLoanSubmission(auth *auth.AccessDet
 		helper.PanicIfError(err)
 	}
 
-	// Default bunga tahunan
+	// Default interest on year
 	interestYearValue := 10.0
 
-	// Calculate bunga (metode flat)
+	// Calculate interest (metode flat)
 	interestAmount := instalmentAmount * (interestYearValue / 100) * (float64(request.Period) / 12)
 
 	transaction := &domain.Transaction{

@@ -39,6 +39,11 @@ func Auth(next func(c *gin.Context, auth *AccessDetails), roles []string) gin.Ha
 	return func(c *gin.Context) {
 		// Check JWT Token
 		tokenAuth, err := ExtractTokenMetadata(ExtractToken(c.Request))
+
+		// // Check to logic auth or implementation access role
+		// if tokenAuth.Role != "admin" {
+		// 	helper.PanicIfError(exception.ErrUnauthorized)
+		// }
 		if err != nil {
 			helper.PanicIfError(exception.ErrUnauthorized)
 		}
